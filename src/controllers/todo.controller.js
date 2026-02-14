@@ -168,9 +168,48 @@ const filterTaskByStatus = async (req, res) => {
   }
 };
 
+const deleteTaskById = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = req.user;
+
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter Id",
+      });
+    }
+
+    const task = await todoModel.findByIdAndDelete({
+      _id: id,
+      userId: user.userId,
+    });
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: "Task not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Succesfully deleted task",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete task",
+      error: error.message,
+      method: deleteTaskById.name,
+    });
+  }
+};
+
 module.exports = {
   createTask,
   getMyTask,
   changeTaskStatus,
   filterTaskByStatus,
+  deleteTaskById,
 };
