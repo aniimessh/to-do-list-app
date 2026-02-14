@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+/target/
+/vendor/
+
+# Build artifacts and temporary files
+/build/
+/dist/
+/pkg/
+*.log
+*.tmp
+*.swp
+.DS_Store # macOS system files
+
+# Environment variables and sensitive files
+.env
+.env.local
+config/*.secret.exs # Example for Elixir/Phoenix backend
+
+# IDE-specific files (optional)
+.idea/ # IntelliJ IDEA files
+.vscode/ # VS Code files
